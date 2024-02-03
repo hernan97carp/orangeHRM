@@ -1,0 +1,22 @@
+{
+  "name": "orangehrm",
+  "version": "1.0.0",
+  "description": "\u0016",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016"
+  },
+  "keywords": [
+    "automation",
+    "cypress"
+  ],
+  "author": "hernan esquivel",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^13.6.4"
+  }
+}
