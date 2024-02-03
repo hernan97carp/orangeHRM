@@ -11,7 +11,10 @@ baseUrl:"https://opensource-demo.orangehrmlive.com/web/index.php"
   env:{
     AdminUser:{
       username:"Admin",
-      password:"admin123"
+      usernameEmpty:"",
+      password:"admin123",
+      passwordEmpty:""
+
     },
     endpoint:{
       authLogin: "/auth/login",

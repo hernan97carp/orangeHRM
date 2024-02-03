@@ -1,23 +1,28 @@
-class Login{
+class Login {
+  get = {
+    usernameInput: () => cy.get('[name="username"]'),
+    passwordInput: () => cy.get('[name="password"]'),
+    submitButton: () => cy.get('[type="submit"]'),
+    forgotLink: () => cy.get('[class*="login-forgot"] p'),
+    emptyInputUsername: () => cy.get(":nth-child(2) > .oxd-input-group > .oxd-text"),
+    emptyInputPassword: () => cy.get(":nth-child(3) > .oxd-input-group > .oxd-text"),
+  };
 
-    get= {
-      
-        usernameInput: ()=> cy.get('[name="username"]'),
-        passwordInput: ()=> cy.get('[name="password"]'),
-        submitButton: ()=> cy.get('[type="submit"]'),
-        forgotLink: ()=> cy.get('[class*="login-forgot"] p'),
+  enterUsername(type) {
+    if (type) {
+      this.get.usernameInput().type(type);
     }
- 
-    enterUsername(type){
-         this.get.usernameInput().type(type)
+  }
+
+  enterPassword(type) {
+    if (type) {
+      this.get.passwordInput().type(type);
     }
-    enterPassword(type){
-         this.get.passwordInput().type(type)
-    }
-   submitLogin(type){
-         this.get.submitButton().click()
-    }
+  }
+
+  submitLogin() {
+    this.get.submitButton().click();
+  }
 }
 
-export const login = new Login;
-
+export const login = new Login();

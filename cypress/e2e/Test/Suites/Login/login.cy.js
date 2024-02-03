@@ -1,20 +1,46 @@
+const { login } = require("../../../../support/POM/Login.Page");
+const { authLogin, dashboardIndex } = Cypress.env("endpoint");
+const { username, password, usernameEmpty, passwordEmpty } =
+  Cypress.env("AdminUser");
 
-const {login} = require('../../../../support/POM/Login.Page')
-const {authLogin, dashboardIndex} = Cypress.env('endpoint')
-const {username,password} = Cypress.env('AdminUser')
+describe("orangeHRM | Account | log in", () => {
+  beforeEach(() => {
+    cy.visit("/");
+    cy.url().should("contain", authLogin);
+  });
 
+  it("US-XX-XX TC1: Validate successful login with valid credentials ", () => {
+    cy.LoginOrange(username, password);
+    cy.url().should(
+      "contain",
+      dashboardIndex,
+      "Failed to navigate to the dashboard"
+    );
+    cy.contains("Dashboard").should("be.visible");
+  });
 
+  it("US-XX-XX TC2: Verify login is not permitted when the password input is empty.", () => {
+    cy.LoginOrange(username, passwordEmpty);
 
-describe('user logs in',()=>{
-    beforeEach(()=>{
-        cy.visit("/")
-        cy.url().should("contain",authLogin)
-    })
-    it('validate login succesfully',()=>{
-      login.enterUsername(username)
-      login.enterPassword(password)
-      login.submitLogin()
+    login.get
+      .emptyInputPassword()
+      .assertElementExistsVisibleWithText("Required");
+  });
 
-      cy.url().should("contain", dashboardIndex)
-    })
-})
+  it("US-XX-XX TC3: Verify login is not permitted when the username input is empty.", () => {
+    cy.LoginOrange(usernameEmpty, password);
+    login.get
+      .emptyInputUsername()
+      .assertElementExistsVisibleWithText("Required");
+  });
+
+  it("US-XX-XX TC4: Validate that login is not allowed when both the USERNAME and PASSWORD fields are left empty.", () => {
+    cy.LoginOrange(usernameEmpty, passwordEmpty);
+    login.get
+      .emptyInputUsername()
+      .assertElementExistsVisibleWithText("Required");
+    login.get
+      .emptyInputPassword()
+      .assertElementExistsVisibleWithText("Required");
+  });
+});
