@@ -22,3 +22,8 @@ Cypress.Commands.add('OrangeAndAuthLoginPath', () => {
 	cy.url().should('contain', orange);
 	cy.url().should('contain', authLogin);
 });
+
+Cypress.Commands.add("errorInvalidCredentials",()=>{
+  login.errorMessageInvalidCredentials()
+
+})

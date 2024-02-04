@@ -24,6 +24,10 @@ class Login {
 	submitLogin() {
 		this.get.submitButton().click();
 	}
+
+	errorMessageInvalidCredentials(){
+		this.get.invalidCredentials().should('exist').should('have.text', 'Invalid credentials')
+	}
 }
 
 export const login = new Login();

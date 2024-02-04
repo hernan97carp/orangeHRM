@@ -41,19 +41,22 @@ describe('orangeHRM | Account | log in', () => {
 		login.get.emptyInputPassword().assertElementExistsVisibleWithText('Required');
 		cy.OrangeAndAuthLoginPath();
 	});
+
+
 	it('US-XX--XX TC5: Verify login failure with valid username and invalid password', () => {
 		cy.LoginOrange(username, invalidPassword);
-		login.get.invalidCredentials().should('exist').should('have.text', 'Invalid credentials');
+		cy.errorInvalidCredentials();
 		cy.OrangeAndAuthLoginPath();
 	});
+
 	it('US-XX--XX TC6: Verify login failure with invalid username and valid password', () => {
 		cy.LoginOrange(invalidUsername, password);
-		login.get.invalidCredentials().should('exist').should('have.text', 'Invalid credentials');
+		cy.errorInvalidCredentials();
 		cy.OrangeAndAuthLoginPath();
 	});
 	it('US-XX--XX TC7: Verify login failure with invalid credentials', () => {
 		cy.LoginOrange(invalidUsername, invalidPassword);
-		login.get.invalidCredentials().should('exist').should('have.text', 'Invalid credentials');
+		cy.errorInvalidCredentials();
 		cy.OrangeAndAuthLoginPath();
 	});
 });
