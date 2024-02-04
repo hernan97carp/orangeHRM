@@ -1,14 +1,11 @@
+
+
+
 const { login } = require('../../../../support/POM/Login.Page');
-const dashboardIndex = Cypress.env('endpoint').dashboardIndex;
-const {
-	username,
-	password,
-	usernameEmpty,
-	passwordEmpty,
-	invalidUsername,
-	invalidPassword,
-	
-} = Cypress.env('AdminUser');
+const { dashboardIndex, adminUserData } = require('../../../../support/DATA/loginData');
+
+const { username, password, usernameEmpty, passwordEmpty,invalidPassword,invalidUsername } = adminUserData;
+
 
 describe('orangeHRM | Account | log in', () => {
 	beforeEach(() => {
@@ -24,8 +21,7 @@ describe('orangeHRM | Account | log in', () => {
 
 	it('US-XX-XX TC2: Verify login is not permitted when the password input is empty.', () => {
 		cy.LoginOrange(username, passwordEmpty);
-
-		login.emptyInputPasswordRequired()
+		login.emptyInputPasswordRequired();
 		cy.OrangeAndAuthLoginPath();
 	});
 
