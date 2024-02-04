@@ -6,6 +6,7 @@ class Login {
     forgotLink: () => cy.get('[class*="login-forgot"] p'),
     emptyInputUsername: () => cy.get(":nth-child(2) > .oxd-input-group > .oxd-text"),
     emptyInputPassword: () => cy.get(":nth-child(3) > .oxd-input-group > .oxd-text"),
+    invalidCredentials: () => cy.get('p.oxd-text.oxd-text--p.oxd-alert-content-text'),
   };
 
   enterUsername(type) {

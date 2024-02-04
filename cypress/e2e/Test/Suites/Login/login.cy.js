@@ -1,6 +1,6 @@
 const { login } = require("../../../../support/POM/Login.Page");
 const { authLogin, dashboardIndex } = Cypress.env("endpoint");
-const { username, password, usernameEmpty, passwordEmpty } =
+const { username, password, usernameEmpty, passwordEmpty,invalidUsername, invalidPassword } =
   Cypress.env("AdminUser");
 
 describe("orangeHRM | Account | log in", () => {
@@ -42,5 +42,14 @@ describe("orangeHRM | Account | log in", () => {
     login.get
       .emptyInputPassword()
       .assertElementExistsVisibleWithText("Required");
+  });
+  it("US-XX--XX TC5: Verify login failure with valid username and invalid password",()=>{
+   cy.LoginOrange(username,invalidPassword)
+  });
+  it("US-XX--XX TC6: Verify login failure with invalid username and valid password",()=>{
+    cy.LoginOrange(invalidUsername, password)
+  });
+  it("US-XX--XX TC7: Verify login failure with invalid credentials",()=>{
+    cy.LoginOrange(invalidUsername,invalidPassword)
   });
 });
