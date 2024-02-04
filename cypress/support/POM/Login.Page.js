@@ -28,6 +28,14 @@ class Login {
 	errorMessageInvalidCredentials(){
 		this.get.invalidCredentials().should('exist').should('have.text', 'Invalid credentials')
 	}
+    
+    emptyInputUsernameRequired(){
+		this.get.emptyInputUsername().should('exist').should('be.visible').and('have.text', 'Required')
+	}
+    emptyInputPasswordRequired(){
+		this.get.emptyInputPassword().should('exist').should('be.visible').and('have.text', 'Required')
+	}
+
 }
 
 export const login = new Login();

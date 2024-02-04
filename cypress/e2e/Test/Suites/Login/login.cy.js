@@ -25,20 +25,21 @@ describe('orangeHRM | Account | log in', () => {
 	it('US-XX-XX TC2: Verify login is not permitted when the password input is empty.', () => {
 		cy.LoginOrange(username, passwordEmpty);
 
-		login.get.emptyInputPassword().assertElementExistsVisibleWithText('Required');
+		login.emptyInputPasswordRequired()
 		cy.OrangeAndAuthLoginPath();
 	});
 
 	it('US-XX-XX TC3: Verify login is not permitted when the username input is empty.', () => {
 		cy.LoginOrange(usernameEmpty, password);
-		login.get.emptyInputUsername().assertElementExistsVisibleWithText('Required');
+    login.emptyInputUsernameRequired()
 		cy.OrangeAndAuthLoginPath();
 	});
 
 	it('US-XX-XX TC4: Validate that login is not allowed when both the USERNAME and PASSWORD fields are left empty.', () => {
 		cy.LoginOrange(usernameEmpty, passwordEmpty);
-		login.get.emptyInputUsername().assertElementExistsVisibleWithText('Required');
-		login.get.emptyInputPassword().assertElementExistsVisibleWithText('Required');
+		login.emptyInputUsernameRequired()
+    login.emptyInputPasswordRequired()
+		
 		cy.OrangeAndAuthLoginPath();
 	});
 
