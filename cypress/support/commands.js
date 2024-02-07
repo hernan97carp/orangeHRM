@@ -4,10 +4,17 @@ import 'cypress-downloadfile/lib/downloadFileCommand';
 
 const { login } = require('../support/POM/Login.Page');
 const { orange, authLogin } = Cypress.env('endpoint');
+
+
 Cypress.Commands.add('LoginOrange', (user, pass) => {
-	login.enterUsername(user);
-	login.enterPassword(pass);
-	login.submitLogin();
+	cy.session('Login',()=>{
+		cy.visit("https://opensource-demo.orangehrmlive.com/")
+		cy.url().should("contain", "orangehrm")
+		login.enterUsername(user);
+		login.enterPassword(pass);
+		login.submitLogin();
+	})
+	
 });
 
 Cypress.Commands.add('OrangeAndAuthLoginPath', () => {
@@ -18,6 +25,10 @@ Cypress.Commands.add('OrangeAndAuthLoginPath', () => {
 Cypress.Commands.add('ErrorInvalidCredentials', () => {
 	login.errorMessageInvalidCredentials();
 });
+
+
+
+
 
 // Configuration to handle uncaught exceptions
 Cypress.on('uncaught:exception', (err, runnable) => {
