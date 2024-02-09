@@ -3,7 +3,15 @@ class DropDown {
 
 	userOptions ={
 		userOptionsDropdown:() =>cy.get('.oxd-userdropdown-tab'),
-		userOptionDropdownLogOut: ()=> cy.get(':nth-child(4) > .oxd-userdropdown-link')
+        imgProfile: ()=> cy.get('img.oxd-userdropdown-img'),
+		profileName: () => cy.get('p.oxd-userdropdown-name'),
+		menu: () => cy.get('ul.oxd-dropdown-menu'),
+		itemAbout: () => cy.get('a[role="menuitem"]').eq(0),
+		itemSupport: () => cy.get('a[role="menuitem"]').eq(1),
+		itemChangePassword: () => cy.get('a[role="menuitem"]').eq(2),
+		itemLogOut: () => cy.get('a[role="menuitem"]').eq(3),
+		
+		
 	}
 
   dropdownHeaderHamburger = {
@@ -25,9 +33,19 @@ class DropDown {
   dropdownLogOut() {
 	this.userOptions.userOptionsDropdown().should('be.visible').click()
 		  
-   this.userOptions.userOptionDropdownLogOut().click();
+   this.userOptions.itemLogOut().click();
 		
 	  }
+
+	 verifyItemsUserDropDown(){
+		//Improved readability by utilizing 'within' for better context management.
+		this.userOptions.menu().within(()=>{
+			this.userOptions.itemAbout().should('exist').should('contain.text','About')
+			this.userOptions.itemSupport().should('exist').should('contain.text','Support')
+			this.userOptions.itemChangePassword().should('exist').should('contain.text','Change Password')
+			this.userOptions.itemLogOut().should('exist').should('contain.text','Logout')
+		   })
+	 } 
 }
 
 export const dropDown = new DropDown;

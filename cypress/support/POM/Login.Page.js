@@ -1,5 +1,6 @@
 class Login {
 	get = {
+		formLogin: () => cy.get('div.orangehrm-login-slot'),
 		usernameInput: () => cy.get('[name="username"]'),
 		passwordInput: () => cy.get('[name="password"]'),
 		submitButton: () => cy.get('[type="submit"]'),

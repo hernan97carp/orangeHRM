@@ -20,11 +20,6 @@ Cypress.Commands.add('LoginOrange', (user, pass) => {
 	cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index')
 });
 
-
-
-
-
-
 // Custom function to perform a basic login in OrangeHRM without keeping the session active
 //only use these commands to test the login
 Cypress.Commands.add('testLogin', (user, pass) => {
@@ -36,22 +31,15 @@ Cypress.Commands.add('testLogin', (user, pass) => {
 		login.submitLogin();		
 });
 
-
-
-
-
 Cypress.Commands.add('OrangeAndAuthLoginPath', () => {
 	cy.url().should('contain', orange);
 	cy.url().should('contain', authLogin);
+	login.get.formLogin().should('exist').should('be.visible')
 });
 
 Cypress.Commands.add('ErrorInvalidCredentials', () => {
 	login.errorMessageInvalidCredentials();
 });
-
-
-
-
 
 // Configuration to handle uncaught exceptions
 Cypress.on('uncaught:exception', (err, runnable) => {
@@ -62,9 +50,6 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 	return false;
   });
   
-
-
-
 Cypress.Commands.add("performSearch",(searchTerm)=>{
  dropDown.dropdownHeaderHamburger.itemSearch().click().clear().type(searchTerm)
 
