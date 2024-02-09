@@ -48,4 +48,4 @@ class DropDown {
 	 } 
 }
 
-export const dropDown = new DropDown;
+export const dropDown = new DropDown();
