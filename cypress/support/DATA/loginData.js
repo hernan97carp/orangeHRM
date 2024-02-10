@@ -1,15 +1,15 @@
 const dashboardIndex = Cypress.env('endpoint').dashboardIndex;
 
-const adminUserData = {
-	username: Cypress.env('AdminUser').username,
-	password: Cypress.env('AdminUser').password,
-	usernameEmpty: Cypress.env('AdminUser').usernameEmpty,
-	passwordEmpty: Cypress.env('AdminUser').passwordEmpty,
-	invalidUsername: Cypress.env('AdminUser').invalidUsername,
-	invalidPassword: Cypress.env('AdminUser').invalidPassword,
+const LoginUserData = {
+	usernameLogin: Cypress.env('LoginUser').usernameLogin,
+	passwordLogin: Cypress.env('LoginUser').passwordLogin,
+	usernameEmpty: Cypress.env('LoginUser').usernameEmpty,
+	passwordEmpty: Cypress.env('LoginUser').passwordEmpty,
+	invalidUsername: Cypress.env('LoginUser').invalidUsername,
+	invalidPassword: Cypress.env('LoginUser').invalidPassword,
 };
 
 module.exports = {
 	dashboardIndex,
-	adminUserData,
+	LoginUserData,
 };

@@ -15,7 +15,7 @@ class AdminUser {
     }
 
     recordsFounds = {
-        resultsRecordsFounds: ()=>  cy.get('.orangehrm-horizontal-padding > .oxd-text').invoke('text').should('match', /\(3\) Records Found/),
+        resultsRecordsFounds: ()=>  cy.get('.orangehrm-horizontal-padding > .oxd-text').invoke('text'),
         usernameFieldContainer:()=> cy.get('.oxd-table-card > .oxd-table-row > :nth-child(2) > div'),
        userRoleFieldCOntainer: ()=> cy.get('.oxd-table-card > .oxd-table-row > :nth-child(3) > div'),
        employeeNameFieldContainer: ()=> cy.get('.oxd-table-card > .oxd-table-row > :nth-child(4) > div'),

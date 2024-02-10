@@ -1,11 +1,11 @@
 const { dropDown } = require('../../../../support/POM/Drop.Down');
-const { adminUserData } = require('../../../../support/DATA/loginData');
-const { username, password} = adminUserData;
+const { LoginUserData } = require('../../../../support/DATA/loginData');
+const { usernameLogin, passwordLogin} = LoginUserData;
 const dropdownMenuItems = dropDown.userOptions
 describe('orange | dropdown | userProfileDropDown',()=>{
 
     beforeEach(()=>{
-        cy.LoginOrange(username,password)
+        cy.LoginOrange(usernameLogin,passwordLogin)
 
     })
     it('US-XX-XX TC1: Verify the presence and visibility of the profile image', () => {

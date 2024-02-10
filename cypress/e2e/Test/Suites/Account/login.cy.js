@@ -1,8 +1,8 @@
 const { login } = require('../../../../support/POM/Login.Page');
 const {dropDown} = require('../../../../support/POM/Drop.Down');
-const { dashboardIndex, adminUserData } = require('../../../../support/DATA/loginData');
-const { username, password, usernameEmpty, passwordEmpty, invalidPassword, invalidUsername } =
-	adminUserData;
+const { dashboardIndex, LoginUserData} = require('../../../../support/DATA/loginData');
+const { usernameLogin, passwordLogin, usernameEmpty, passwordEmpty, invalidPassword, invalidUsername } =
+LoginUserData;
 
 describe('orangeHRM | Account | log in', () => {
 	beforeEach(() => {
@@ -11,7 +11,7 @@ describe('orangeHRM | Account | log in', () => {
 	});
 
 	it('US-01 TC1: Validate successful login with valid credentials ', () => {
-		cy.testLogin(username, password);
+		cy.testLogin(usernameLogin, passwordLogin);
 		cy.url().should('contain', dashboardIndex, 'Failed to navigate to the dashboard');
 		cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index')
 		cy.contains('Dashboard').should('be.visible');
@@ -19,13 +19,13 @@ describe('orangeHRM | Account | log in', () => {
 	});
 
 	it('US-01 TC2: Verify login is not permitted when the password input is empty.', () => {
-		cy.testLogin(username, passwordEmpty);
+		cy.testLogin(usernameLogin, passwordEmpty);
 		login.emptyInputPasswordRequired();
 		cy.OrangeAndAuthLoginPath();
 	});
 
 	it('US-01 TC3: Verify login is not permitted when the username input is empty.', () => {
-		cy.testLogin(usernameEmpty, password);
+		cy.testLogin(usernameEmpty, passwordLogin);
 		login.emptyInputUsernameRequired();
 		cy.OrangeAndAuthLoginPath();
 	});
@@ -39,13 +39,13 @@ describe('orangeHRM | Account | log in', () => {
 	});
 
 	it('US-01 TC5: Verify login failure with valid username and invalid password', () => {
-		cy.testLogin(username, invalidPassword);
+		cy.testLogin(usernameLogin, invalidPassword);
 		cy.ErrorInvalidCredentials();
 		cy.OrangeAndAuthLoginPath();
 	});
 
 	it('US-01 TC6: Verify login failure with invalid username and valid password', () => {
-		cy.testLogin(invalidUsername, password);
+		cy.testLogin(invalidUsername, passwordLogin);
 		cy.ErrorInvalidCredentials();
 		cy.OrangeAndAuthLoginPath();
 	});
@@ -55,7 +55,7 @@ describe('orangeHRM | Account | log in', () => {
 		cy.OrangeAndAuthLoginPath();
 	});
     it('US-01 TC8: Verify login In and login Out Successfully',()=>{
-		cy.testLogin(username, password);
+		cy.testLogin(usernameLogin, passwordLogin);
 		dropDown.dropdownLogOut()
 		cy.OrangeAndAuthLoginPath();
 	})

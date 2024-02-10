@@ -9,11 +9,11 @@ module.exports = defineConfig({
 		baseUrl: 'https://opensource-demo.orangehrmlive.com/web/index.php',
 	},
 	env: {
-		AdminUser: {
-			username: 'Admin',
+		LoginUser: {
+			usernameLogin: 'Admin',
 			usernameEmpty: '',
 			invalidUsername: 'Admin4',
-			password: 'admin123',
+			passwordLogin: 'admin123',
 			passwordEmpty: '',
 			invalidPassword: 'admin1234',
 		},
@@ -22,5 +22,18 @@ module.exports = defineConfig({
 			dashboardIndex: '/dashboard/index',
 			orange: 'orangehrm',
 		},
+        
+        dataEmployee: {
+			firstName: "UsuarioTest",
+			middleName: "Hrm",
+			lastName: "Orange",
+		},
+		 dataUser: {
+			username: "UsarioTestOrageZZZA",
+			employeeName: "UsuarioTest Hrm Orange"
+		}
+
+ 
+
 	},
 });

@@ -1,10 +1,10 @@
 const { dropDown } = require('../../../../support/POM/Drop.Down');
-const { adminUserData } = require('../../../../support/DATA/loginData');
-const { username, password } = adminUserData;
+const { LoginUserData } = require('../../../../support/DATA/loginData');
+const { usernameLogin, passwordLogin } = LoginUserData;
 const dropdownMenuItems = dropDown.dropdownHeaderHamburger;
 describe('orange | dropDown | header hamburger', () => {
 	beforeEach(() => {
-		cy.LoginOrange(username, password);
+		cy.LoginOrange(usernameLogin, passwordLogin);
 		cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index');
 	});
 	it('US-02 TC1: Verify opening and closing of the dashboard dropdown menu if the text disappears (Desktop Only)', () => {
@@ -93,7 +93,7 @@ describe('orange | navigation | header hamburger Button Search', () => {
 	beforeEach(
 		'Precondition: The user needs to be logged in and still on the dashboard URL',
 		() => {
-			cy.LoginOrange(username, password);
+			cy.LoginOrange(usernameLogin, passwordLogin);
 		},
 	);
 
