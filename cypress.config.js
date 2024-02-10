@@ -21,6 +21,7 @@ module.exports = defineConfig({
 			authLogin: '/auth/login',
 			dashboardIndex: '/dashboard/index',
 			orange: 'orangehrm',
+
 		},
         
         dataEmployee: {
@@ -29,10 +30,32 @@ module.exports = defineConfig({
 			lastName: "Orange",
 		},
 		 dataUser: {
-			username: "UsarioTestOrageZZZA",
-			employeeName: "UsuarioTest Hrm Orange"
-		}
+			username: "UsarioTestOrssasdZA",
+			emptyUsername: "",
+            leastFiveCharacters: "asdr",
+			fortyCharacters: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacxxxcccc",
 
+
+        
+			passwordNewUser:"password123",
+            passwordEmpty: "",
+            invalidPassword:"%/%/(ZZ>{z}x<z&$", 
+
+
+
+
+			employeeName: "UsuarioTest Hrm Orange",
+			employeeNameEmpty: "",
+            invalidEmployeeName: "%/%/(ZZ>{z}x<z&$",
+
+
+
+			
+
+
+		}
+       
+	
  
 
 	},

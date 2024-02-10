@@ -23,10 +23,31 @@ class AdminUser {
        
       }
 
-      addUsers = {
-        addMoreUsers: ()=> cy.get('.orangehrm-header-container > .oxd-button'),
+      addEmployee = {
+       addMoreUser: ()=> cy.get('.orangehrm-header-container > .oxd-button'),
+       firstNameInput: () => cy.get('.--name-grouped-field > :nth-child(1) > :nth-child(2) > .oxd-input'),
+       middleNameInput: () =>cy.get(':nth-child(2) > :nth-child(2) > .oxd-input'),
+       lastNameInput: () => cy.get(':nth-child(3) > :nth-child(2) > .oxd-input'),
+       saveButton: () => cy.get('.oxd-button--secondary'),
+       alertSuccess: () => cy.get('.oxd-toast'),
+       alertSuccessfullySaved: ()=> cy.get('.oxd-text--toast-message')
+      
       }
-    
+      addUser = {
+          usernameInput: () => cy.get(':nth-child(4) > .oxd-input-group > :nth-child(2) > .oxd-input'),
+          errorUsernameAlreadyExist: () => cy.get('.oxd-input-group > .oxd-text'),
+          userRoleSelect: () => cy.get('.oxd-select-text--after'),
+          userRoleOptionAdmin: ()=> cy.get('.oxd-select-dropdown > :nth-child(2)'),
+          userStatusSelect: () => cy.get(':nth-child(3) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text'),
+          employeeNameInput: () => 	cy.get('.oxd-autocomplete-text-input > input'),
+          employeeNameDropDownResults: () => cy.get('.oxd-autocomplete-dropdown > :nth-child(1)'),
+          userStatusOptionEnabled: () =>  cy.get('.oxd-select-dropdown > :nth-child(2)'),
+          passwordUserInput: () => cy.get('.user-password-cell > .oxd-input-group > :nth-child(2) > .oxd-input'),
+          confirmPasswordUserInput: () => 	cy.get(':nth-child(2) > .oxd-input-group > :nth-child(2) > .oxd-input'),
+          saveButton:()=> cy.get('.oxd-button--secondary'),
+          alertSuccess: () => cy.get('.oxd-toast')
+        }
+       
 
   }
   

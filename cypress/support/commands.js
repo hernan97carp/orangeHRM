@@ -2,13 +2,18 @@ import 'cypress-file-upload';
 import '@4tw/cypress-drag-drop';
 import 'cypress-downloadfile/lib/downloadFileCommand';
 
-
 const { login } = require('../support/POM/Login.Page');
 const { dropDown} = require('../support/POM/Drop.Down') 
 const { orange, authLogin } = Cypress.env('endpoint');
 const { adminUser } = require('../support/POM/Admin.Users');
 const searchItems = adminUser.systemUsers;
 const resultsSearch = adminUser.recordsFounds
+const createNewEmployee = adminUser.addEmployee
+const createNewUser = adminUser.addUser
+
+
+
+
 // Custom function to perform a login in OrangeHRM with the option to keep the session active
 //Only use these commands to test the software
 Cypress.Commands.add('LoginOrange', (user, pass) => {
@@ -34,15 +39,26 @@ Cypress.Commands.add('testLogin', (user, pass) => {
 		login.submitLogin();		
 });
 
+
 Cypress.Commands.add('OrangeAndAuthLoginPath', () => {
 	cy.url().should('contain', orange);
 	cy.url().should('contain', authLogin);
 	login.get.formLogin().should('exist').should('be.visible')
 });
 
+
+
+
+
+
+
 Cypress.Commands.add('ErrorInvalidCredentials', () => {
 	login.errorMessageInvalidCredentials();
 });
+
+
+
+// CAUTION THIS IS NOT A GOOD PRACTICE !
 
 // Configuration to handle uncaught exceptions
 Cypress.on('uncaught:exception', (err, runnable) => {
@@ -53,6 +69,9 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 	return false;
   });
   
+
+
+ // PERFORM SEARCH 
 Cypress.Commands.add("performSearch",(searchTerm)=>{
  dropDown.dropdownHeaderHamburger.itemSearch().click().clear().type(searchTerm)
 
@@ -60,73 +79,71 @@ Cypress.Commands.add("performSearch",(searchTerm)=>{
 
 
 
-// Commands to the Admin.Users.js
+// COMMANDS TO ADMIN USER
+
+
+
 Cypress.Commands.add('elementNotExist', () => {
 	cy.get('.oxd-input-group > .oxd-text').should('not.exist');
   });
   
-  Cypress.Commands.add('enterUsername', (username) => {
-	cy.get(':nth-child(4) > .oxd-input-group > :nth-child(2) > .oxd-input')
-	  .click()
-	  .clear()
-	  .type(username);
-  });
-  
+
+
+Cypress.Commands.add('enterUsername', (username) => {
+  const input = createNewUser.usernameInput();
+
+  if (username !== '') {
+    input.click().clear().type(username);
+  } else {
+    input.click().clear(); // Simplemente borra cualquier texto si el nombre de usuario está vacío
+  }
+});
 
 
 
   Cypress.Commands.add('addNewEmployee',(fistName,middleName,LastName)=>{
 
 cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList')
-cy.get('.oxd-button.oxd-button--medium.oxd-button--secondary').eq(1).click()
-
-//employee name
-cy.get('.--name-grouped-field > :nth-child(1) > :nth-child(2) > .oxd-input').click().type(fistName)
-
-cy.get(':nth-child(2) > :nth-child(2) > .oxd-input').click().type(middleName)
-
-
-cy.get(':nth-child(3) > :nth-child(2) > .oxd-input').click().type(LastName)
-
-cy.get('.oxd-button--secondary').click()
-
-cy.get('.oxd-toast').should('be.exist').should('be.exist')
-
+createNewEmployee.addMoreUser().click()
+createNewEmployee.firstNameInput().click().type(fistName)
+createNewEmployee.middleNameInput().click().type(middleName)
+createNewEmployee.lastNameInput().click().type(LastName)
+createNewEmployee.saveButton().click()
+createNewEmployee.alertSuccess().should('be.exist').should('be.exist')
+createNewEmployee.alertSuccessfullySaved().should('contain','Successfully Saved')
   })
   
 
 
 
-Cypress.Commands.add('addNewUser',(username,employeeName)=>{
+Cypress.Commands.add('addNewUser',(username,employeeName,passwordNewUser)=>{
 
-cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveSystemUser')
-		cy.url().should('contain','saveSystemUser')
-		cy.get('.oxd-select-text--after').eq(0).click()
-		cy.get('.oxd-select-dropdown > :nth-child(2)').click()
-	
-		cy.get(':nth-child(3) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text > .oxd-select-text-input').click()
-		cy.get('.oxd-select-dropdown > :nth-child(2)').click()
-	
-		//employee name
-		cy.get('.oxd-autocomplete-text-input > input').click().type(employeeName)
-	
-		cy.get('.oxd-autocomplete-dropdown > :nth-child(1)').should('not.contain','Searching').click()
-	
-		//username
-       cy.enterUsername(username)
-
-		cy.get('.oxd-input-group > .oxd-text').should('not.exist').then(() => {
-				cy.get('.user-password-cell > .oxd-input-group > :nth-child(2) > .oxd-input').type('password123')
-				//confirm password
-				cy.get(':nth-child(2) > .oxd-input-group > :nth-child(2) > .oxd-input').type('password123')
+    cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveSystemUser')
+    cy.url().should('contain','saveSystemUser')
 		
-				cy.get('[data-layer="Content"]').should('not.exist')
-				cy.get('.oxd-button--secondary').click()
-				cy.get('.oxd-toast').should('be.exist').should('contain','Success')
+	    cy.enterUsername(username)
+	    createNewUser.userRoleSelect().eq(0).click()
+	    createNewUser.userRoleOptionAdmin().click()
+		createNewUser.userStatusSelect().click()
+		createNewUser.userStatusOptionEnabled().click()
+		createNewUser.employeeNameInput().click().type(employeeName)
+		createNewUser.employeeNameDropDownResults().should('not.contain','Searching').click()
+		createNewUser.passwordUserInput().click().type(passwordNewUser)
+		createNewUser.confirmPasswordUserInput().click().type(passwordNewUser)
+		createNewUser.saveButton().click()
+		
 
-		})
+	
 })
 
+
+Cypress.Commands.add('validationFormUserAdd',()=>{
+
+	createNewUser.errorUsernameAlreadyExist().should('not.exist')
+	createNewUser.alertSuccess().should('be.exist').should('contain','Success')
+
+
+})
 
 
 
@@ -135,7 +152,7 @@ cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveSyst
 
 Cypress.Commands.add('searchNewUser',(username, employeeName,firstName,lastName)=>{
 cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers')
-
+   //Search
 		searchItems.usernameInput().click().type(username);
 		searchItems.userRoleInput().click();
 		searchItems.optionUserRoleAdmin().click();
@@ -146,7 +163,6 @@ cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSyst
 		searchItems.buttonSearch().click();
 
         searchItems.employeeNameInvalid().should('not.exist')
-
 
   //Results
     resultsSearch.resultsRecordsFounds().should('match', /\(1\) Record Found/);
