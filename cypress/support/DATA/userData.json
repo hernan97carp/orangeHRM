@@ -1,12 +1,12 @@
 {
-    "username": "UsarioTestOrssasdZA",
-    "emptyUsername": "",
-    "leastFiveCharacters": "asdr",
-    "fortyCharacters": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacxxxcccc",
-    "passwordNewUser": "password123",
-    "passwordEmpty": "",
-    "invalidPassword": "%/%/(ZZ>{z}x<z&$",
-    "employeeName": "UsuarioTest Hrm Orange",
-    "employeeNameEmpty": "",
-    "invalidEmployeeName": "%/%/(ZZ>{z}x<z&$"
+	"username": "UsarioTestOrssasdZA",
+	"emptyUsername": "",
+	"leastFiveCharacters": "asdr",
+	"fortyCharacters": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacxxxcccc",
+	"passwordNewUser": "password123",
+	"passwordEmpty": "",
+	"invalidPassword": "%/%/(ZZ>{z}x<z&$",
+	"employeeName": "UsuarioTest Hrm Orange",
+	"employeeNameEmpty": "",
+	"invalidEmployeeName": "%/%/(ZZ>{z}x<z&$"
 }

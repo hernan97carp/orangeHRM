@@ -1,8 +1,14 @@
 const { login } = require('../../../../support/POM/Login.Page');
-const {dropDown} = require('../../../../support/POM/Drop.Down');
-const { dashboardIndex, LoginUserData} = require('../../../../support/DATA/loginData');
-const { usernameLogin, passwordLogin, usernameEmpty, passwordEmpty, invalidPassword, invalidUsername } =
-LoginUserData;
+const { dropDown } = require('../../../../support/POM/Drop.Down');
+const { dashboardIndex, LoginUserData } = require('../../../../support/DATA/loginData');
+const {
+	usernameLogin,
+	passwordLogin,
+	usernameEmpty,
+	passwordEmpty,
+	invalidPassword,
+	invalidUsername,
+} = LoginUserData;
 
 describe('orangeHRM | Account | log in', () => {
 	beforeEach(() => {
@@ -13,9 +19,8 @@ describe('orangeHRM | Account | log in', () => {
 	it('US-01 TC1: Validate successful login with valid credentials ', () => {
 		cy.testLogin(usernameLogin, passwordLogin);
 		cy.url().should('contain', dashboardIndex, 'Failed to navigate to the dashboard');
-		cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index')
+		cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index');
 		cy.contains('Dashboard').should('be.visible');
-		
 	});
 
 	it('US-01 TC2: Verify login is not permitted when the password input is empty.', () => {
@@ -54,10 +59,9 @@ describe('orangeHRM | Account | log in', () => {
 		cy.ErrorInvalidCredentials();
 		cy.OrangeAndAuthLoginPath();
 	});
-    it('US-01 TC8: Verify login In and login Out Successfully',()=>{
+	it('US-01 TC8: Verify login In and login Out Successfully', () => {
 		cy.testLogin(usernameLogin, passwordLogin);
-		dropDown.dropdownLogOut()
+		dropDown.dropdownLogOut();
 		cy.OrangeAndAuthLoginPath();
-	})
-
+	});
 });

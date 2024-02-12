@@ -3,10 +3,6 @@ const { LoginUserData } = require('../../../../support/DATA/loginData');
 const { usernameLogin, passwordLogin } = LoginUserData;
 const dropdownMenuItems = dropDown.dropdownHeaderHamburger;
 
-
-
-
-
 describe('orange | dropDown | header hamburger', () => {
 	beforeEach(() => {
 		cy.LoginOrange(usernameLogin, passwordLogin);
@@ -88,8 +84,6 @@ describe('orange | dropDown | header hamburger', () => {
 		cy.get('.oxd-topbar-header-title').contains('Buzz');
 	});
 });
-
-
 
 describe('orange | navigation | header hamburger Button Search', () => {
 	beforeEach(
