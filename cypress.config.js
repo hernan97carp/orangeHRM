@@ -25,33 +25,21 @@ module.exports = defineConfig({
 		},
         
         dataEmployee: {
-			firstName: "UsuarioTest",
+			firstName: "UsuarioTestt",
 			middleName: "Hrm",
 			lastName: "Orange",
 		},
 		 dataUser: {
-			username: "UsarioTestOrssasdZA",
+			username: "UsarioTestOrssasdZAB",
 			emptyUsername: "",
             leastFiveCharacters: "asdr",
 			fortyCharacters: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacxxxcccc",
-
-
-        
 			passwordNewUser:"password123",
             passwordEmpty: "",
             invalidPassword:"%/%/(ZZ>{z}x<z&$", 
-
-
-
-
-			employeeName: "UsuarioTest Hrm Orange",
+			employeeName: "UsuarioTestt Hrm Orange",
 			employeeNameEmpty: "",
-            invalidEmployeeName: "%/%/(ZZ>{z}x<z&$",
-
-
-
-			
-
+            invalidEmployeeName: "%/%/(ZZ>{z}x<z&$"
 
 		}
        

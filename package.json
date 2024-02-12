@@ -24,6 +24,7 @@
     "cypress-file-upload": "^5.0.8"
   },
   "devDependencies": {
+    "faker": "^5.5.3",
     "mocha": "^10.2.0",
     "prettier": "^3.2.4"
   }

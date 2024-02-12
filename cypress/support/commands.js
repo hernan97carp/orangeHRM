@@ -31,7 +31,6 @@ Cypress.Commands.add('LoginOrange', (user, pass) => {
 // Custom function to perform a basic login in OrangeHRM without keeping the session active
 //only use these commands to test the login
 Cypress.Commands.add('testLogin', (user, pass) => {
-
 		cy.visit("https://opensource-demo.orangehrmlive.com/")
 		cy.url().should("contain", "orangehrm")
 		login.enterUsername(user);
@@ -45,10 +44,6 @@ Cypress.Commands.add('OrangeAndAuthLoginPath', () => {
 	cy.url().should('contain', authLogin);
 	login.get.formLogin().should('exist').should('be.visible')
 });
-
-
-
-
 
 
 
@@ -79,10 +74,8 @@ Cypress.Commands.add("performSearch",(searchTerm)=>{
 
 
 
+
 // COMMANDS TO ADMIN USER
-
-
-
 Cypress.Commands.add('elementNotExist', () => {
 	cy.get('.oxd-input-group > .oxd-text').should('not.exist');
   });
@@ -95,11 +88,42 @@ Cypress.Commands.add('enterUsername', (username) => {
   if (username !== '') {
     input.click().clear().type(username);
   } else {
-    input.click().clear(); // Simplemente borra cualquier texto si el nombre de usuario está vacío
+    input.click().clear(); 
   }
 });
 
+Cypress.Commands.add('employeeName',(employeeName)=>{
+	const input = createNewUser.employeeNameInput()
+	if (employeeName !== '') {
+		input.click().clear().type(employeeName)
+		createNewUser.employeeNameDropDownResults().should('not.contain','Searching').click()
+	  } else {
+		input.click().clear(); 
+	  }
 
+})
+
+
+Cypress.Commands.add('enterPassword', (password) => {
+	const input = createNewUser.passwordUserInput();
+  
+	if ( password !== '') {
+	  input.click().clear().type(password);
+	} else {
+	  input.click().clear();
+	}
+  });
+  
+  Cypress.Commands.add('confirmPassword', (password) => {
+	const input = createNewUser.confirmPasswordUserInput();
+  
+	if ( password !== '') {
+	  input.click().clear().type(password);
+	} else {
+	  input.click().clear(); 
+	}
+  });
+  
 
   Cypress.Commands.add('addNewEmployee',(fistName,middleName,LastName)=>{
 
@@ -113,35 +137,38 @@ createNewEmployee.alertSuccess().should('be.exist').should('be.exist')
 createNewEmployee.alertSuccessfullySaved().should('contain','Successfully Saved')
   })
   
+Cypress.Commands.add('optionDefaultStatusDefault',()=>{
 
-
-
-Cypress.Commands.add('addNewUser',(username,employeeName,passwordNewUser)=>{
-
-    cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveSystemUser')
-    cy.url().should('contain','saveSystemUser')
-		
-	    cy.enterUsername(username)
-	    createNewUser.userRoleSelect().eq(0).click()
-	    createNewUser.userRoleOptionAdmin().click()
-		createNewUser.userStatusSelect().click()
-		createNewUser.userStatusOptionEnabled().click()
-		createNewUser.employeeNameInput().click().type(employeeName)
-		createNewUser.employeeNameDropDownResults().should('not.contain','Searching').click()
-		createNewUser.passwordUserInput().click().type(passwordNewUser)
-		createNewUser.confirmPasswordUserInput().click().type(passwordNewUser)
-		createNewUser.saveButton().click()
-		
-
-	
+	cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveSystemUser')
+	createNewUser.userRoleSelect()
+	createNewUser.userStatusSelect()
 })
 
 
+
+  Cypress.Commands.add('optionAdminStatusEnabled',()=>{
+	cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveSystemUser')
+	createNewUser.userRoleSelect().eq(0).click()
+	createNewUser.userRoleOptionAdmin().click()
+	createNewUser.userStatusSelect().click()
+	createNewUser.userStatusOptionEnabled().click()
+  })
+
+
+
+Cypress.Commands.add('addNewUserAdmin',(username,employeeName,password, confirmPassword )=>{
+    cy.url().should('contain','saveSystemUser')
+	    cy.enterUsername(username)
+		cy.employeeName(employeeName)
+		cy.enterPassword(password)
+		cy.confirmPassword(confirmPassword)
+		createNewUser.saveButton().click()
+		
+})
 Cypress.Commands.add('validationFormUserAdd',()=>{
 
 	createNewUser.errorUsernameAlreadyExist().should('not.exist')
 	createNewUser.alertSuccess().should('be.exist').should('contain','Success')
-
 
 })
 
