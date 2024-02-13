@@ -1,6 +1,8 @@
 const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
+
+	projectId: "cq5fvd",
 	e2e: {
 		setupNodeEvents(on, config) {
 			// implement node event listeners here
@@ -24,21 +26,22 @@ module.exports = defineConfig({
 		},
 
 		dataEmployee: {
-			firstName: 'UsuarioTestt',
-			middleName: 'Hrm',
+			firstName: 'UAAA',
+			middleName: 'HGG',
 			lastName: 'Orange',
 		},
 		dataUser: {
-			username: 'sarioTestOrssasdZAB',
+			username: 'darioASD',
 			emptyUsername: '',
 			leastFiveCharacters: 'asdr',
 			fortyCharacters: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacxxxcccc',
 			passwordNewUser: 'password123',
 			passwordEmpty: '',
 			invalidPassword: '%/%/(ZZ>{z}x<z&$',
-			employeeName: 'suarioTestt Hrm Orange',
+			employeeName: 'UAAA HGG Orange',
 			employeeNameEmpty: '',
 			invalidEmployeeName: '%/%/(ZZ>{z}x<z&$',
 		},
 	},
 });
+

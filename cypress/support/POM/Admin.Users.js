@@ -45,8 +45,9 @@ class AdminUser {
 		usernameInput: () =>
 			cy.get(':nth-child(4) > .oxd-input-group > :nth-child(2) > .oxd-input'),
 
-		userRoleSelect: () => cy.get('.oxd-select-text--after'),
-		userRoleOptionAdmin: () => cy.get('.oxd-select-dropdown > :nth-child(2)'),
+		userRoleSelect: () => cy.get('.oxd-select-text.oxd-select-text--active, oxd-select-text--after'),
+		
+		userRoleOptionAdmin: () => cy.get('.oxd-select-dropdown > :nth-child(2) > span'),
 		userStatusSelect: () =>
 			cy.get(
 				':nth-child(3) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text',

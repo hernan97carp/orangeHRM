@@ -1,32 +1,34 @@
-//LOGIN
+// Imports
+import { faker } from '@faker-js/faker';
 const { LoginUserData } = require('../../../../support/DATA/loginData');
-const { usernameLogin, passwordLogin } = LoginUserData;
-//DATA EMPLOYEE AND DATA USER
 const { dataNewEmployee, dataNewUser } = require('../../../../support/DATA/adminData');
 const { adminUser } = require('../../../../support/POM/Admin.Users');
-const {
-	username,
-	emptyUsername,
-	leastFiveCharacters,
-	fortyCharacters,
-	employeeName,
-	employeeNameEmpty,
-	passwordNewUser,
-	passwordEmpty,
-} = dataNewUser;
+
+// Generar un número aleatorio de tres dígitos
+const randomNumber = faker.number.int({min:100, max:999})
+// VARIABLES LOGIN 
+const { usernameLogin, passwordLogin } = LoginUserData;
+
+// Variables DATA EMPLOYEE AND DATA USER
+const { username, emptyUsername, leastFiveCharacters, fortyCharacters, employeeName, employeeNameEmpty, passwordNewUser, passwordEmpty } = dataNewUser;
 const { firstName, middleName, lastName } = dataNewEmployee;
 const createNewUser = adminUser.addUser;
-//SEARCH ITEMS
+const usernameAleatory = faker.internet.userName();
+// Variables SEARCH ITEMS
 const searchItems = adminUser.systemUsers;
 
-describe.skip('US-04 orange | Admin User | User Management | Add Users', () => {
+describe('US-04 orange | Admin User | User Management | Add Users', () => {
 	beforeEach(() => {
 		cy.LoginOrange(usernameLogin, passwordLogin);
 		cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers');
 	});
+
+
 	it('US-04 TC1: Verify if the user can create additional user and verify their existence through search', () => {
-		// First, you need to create an employee.
-		cy.addNewEmployee(firstName, middleName, lastName);
+	
+        cy.checkAndDeleteUser(username)
+				
+		cy.addNewEmployee(firstName, middleName, lastName,randomNumber);
 		// Second, create a new user.
 		cy.optionAdminStatusEnabled().then(() => {
 			cy.addNewUserAdmin(username, employeeName, passwordNewUser, passwordNewUser);
@@ -34,8 +36,11 @@ describe.skip('US-04 orange | Admin User | User Management | Add Users', () => {
 		cy.validateUserCreationForm();
 
 		// Finally, validate the existence of the created user.
-		cy.searchNewUser(username, employeeName, firstName, lastName);
+		cy.searchNewUser(username, firstName, lastName);
 	});
+
+
+
 
 	it('US-04 TC2: Verify if the user can not create additional user when the input "username" is empty', () => {
 		cy.optionAdminStatusEnabled().then(() => {
@@ -47,7 +52,7 @@ describe.skip('US-04 orange | Admin User | User Management | Add Users', () => {
 
 	it('US-04 TC3: Verify if the user can not create additional user when the input "password" is empty', () => {
 		cy.optionAdminStatusEnabled().then(() => {
-			cy.addNewUserAdmin(username, employeeName, passwordEmpty, passwordNewUser);
+			cy.addNewUserAdmin(usernameAleatory, employeeName, passwordEmpty, passwordNewUser);
 		});
 
 		createNewUser.errorPasswordRequired().should('exist');
@@ -56,14 +61,14 @@ describe.skip('US-04 orange | Admin User | User Management | Add Users', () => {
 
 	it('US-05 TC4: Verify if the user can not create additional user when the input "confirm Password" is empty', () => {
 		cy.optionAdminStatusEnabled().then(() => {
-			cy.addNewUserAdmin(username, employeeName, passwordNewUser, passwordEmpty);
+			cy.addNewUserAdmin(usernameAleatory, employeeName, passwordNewUser, passwordEmpty);
 		});
 		createNewUser.errorPasswordConfirm().should('exist');
 		cy.url().should('contain', 'saveSystemUser');
 	});
 	it('US-05 TC5: Verify if the user can not create additional user when the input "employee Name" is empty', () => {
 		cy.optionAdminStatusEnabled().then(() => {
-			cy.addNewUserAdmin(username, employeeNameEmpty, passwordNewUser, passwordNewUser);
+			cy.addNewUserAdmin(usernameAleatory, employeeNameEmpty, passwordNewUser, passwordNewUser);
 		});
 
 		createNewUser.errorEmployeeNameRequired().should('exist');
@@ -98,7 +103,19 @@ describe.skip('US-04 orange | Admin User | User Management | Add Users', () => {
 			.should('contain', 'Should not exceed 40 characters');
 		cy.url().should('contain', 'saveSystemUser');
 	});
+
+
+
+
+
 });
+
+
+
+
+
+
+
 
 describe('US-04 orange | Admin User | User Management | Add Users | Search Users', () => {
 	beforeEach(() => {
@@ -121,12 +138,69 @@ describe('US-04 orange | Admin User | User Management | Add Users | Search Users
 		searchItems.status().should('have.text', '-- Select --');
 	});
 
-	it('US-04 TC2:Verify the existence of a newly created use ', () => {
-		cy.searchNewUser(username, employeeName, firstName, lastName);
+	it('US-04 TC2:Verify the existence of a newly created user ', () => {
+		cy.searchNewUser(username, firstName, lastName);
 	});
-	it.only('US-05 TC2: Verify that searching for a user displays an error message if the user is not found', () => {
+	it('US-05 TC3: Verify that searching for a user displays an error message if the user is not found', () => {
 		searchItems.usernameInput().click().type('sdx{}');
 		searchItems.buttonSearch().click();
 		cy.get('.oxd-text--toast-message').should('exist').should('contain', 'No Records Found');
 	});
+
+
+
 });
+
+
+describe('US-04 orange | Admin User | User Management | Add Users | Deleted Users | Edit Users',()=>{
+	
+	beforeEach(() => {
+		cy.LoginOrange(usernameLogin, passwordLogin);
+		cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers');
+	});
+	
+	
+	it('US-04 TC1:verify that the created user can be edit.',()=>{
+
+				
+		cy.searchNewUser(username, firstName, lastName);
+
+	cy.get('i.oxd-icon.bi-pencil-fill').click()
+	//edit
+	cy.get('input.oxd-input.oxd-input--active').eq(1).click().clear().type(usernameAleatory)
+
+	cy.get('.oxd-button--secondary').click()
+	cy.get('.oxd-text--toast-message').should('exist')
+	//search
+	cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers')
+	cy.contains(usernameAleatory).should('exist');
+	})
+
+
+
+
+
+
+
+
+
+
+
+
+it('US-04 TC2:verify that the created user can be deleted.',()=>{
+	cy.checkAndDeleteUser(usernameAleatory)
+
+})
+
+
+
+it('US-04 TC3:verify that the Employee can be deleted.',()=>{
+
+	cy.checkAndDeleteEmployee(employeeName,firstName, middleName,randomNumber)
+
+})
+
+
+
+
+})
