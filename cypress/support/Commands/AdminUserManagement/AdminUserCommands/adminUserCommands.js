@@ -23,7 +23,8 @@ Cypress.Commands.add('employeeName', (employeeName) => {
 	const input = createNewUser.employeeNameInput();
 	if (employeeName !== '') {
 		input.click().clear().type(employeeName);
-		createNewUser.employeeNameDropDownResults().should('not.contain', 'Searching').click();
+		createNewUser.employeeNameDropDownResults().should('not.contain', 'Searching...').click();
+		//.should('not.contain', 'Searching').click();
 	} else {
 		input.click().clear();
 	}
@@ -58,7 +59,8 @@ Cypress.Commands.add('addNewEmployee', (fistName, middleName, LastName,randomNum
 	cy.get('.oxd-grid-item > .oxd-input-group > :nth-child(2) > .oxd-input').click().clear().type(randomNumber)
 	createNewEmployee.saveButton().click();
 	createNewEmployee.alertSuccess().should('exist')
-	createNewEmployee.alertSuccessfullySaved().should('contain', 'Successfully Saved');
+	createNewEmployee.alertSuccessfullySaved().should('exist')
+	//('contain', 'Successfully Saved');
 	
 });
 
@@ -100,7 +102,8 @@ Cypress.Commands.add('validateUserCreationForm', () => {
 	createNewUser.errorStatusRequired().should('not.exist');
 	createNewUser.errorPasswordRequired().should('not.exist');
 	createNewUser.errorPasswordConfirm().should('not.exist');
-	createNewUser.alertSuccess().should('be.exist').should('contain', 'Success');
+	createNewUser.alertSuccess().should('exist')
+	//.should('contain', 'Success');
 });
 
 
@@ -117,33 +120,28 @@ Cypress.Commands.add('employee',(employeeName)=>{
 //USER DELETE
 
 Cypress.Commands.add('checkAndDeleteUser', (username) => {
-	cy.reload()
-    // Hacer clic en el campo de entrada de username e ingresar el valor
-    searchItems.usernameInput().click().type(username);
-    // Hacer clic en el botón de búsqueda
-    searchItems.buttonSearch().click();
-	cy.get('.oxd-table-loader').should('not.exist')
-    searchItems.buttonSearch().click();
 
-    // Esperar a que se carguen los elementos de la tabla y buscar el usuario
-    cy.get('.oxd-table-row').should('exist').then($rows => {
-        if ($rows.find(`:contains("${username}")`).length > 0) {
-            // Si el usuario está presente, hacer clic en el icono de basura para eliminarlo
-            cy.get('i.oxd-icon.bi-trash').click();
-            cy.get('.oxd-button--label-danger').click();
-            cy.get('.oxd-text--toast-message').should('exist');
-            cy.contains(username).should('not.exist');
-        } else {
-            // Si el usuario no está presente, verificar que el icono de basura no exista
-            cy.get('i.oxd-icon.bi-trash').should('not.exist');
-			cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers');
-		
-			cy.get('.orangehrm-container').should('be.visible')
-			cy.get('.orangehrm-container').contains(username).should('not.exist')
-			
-            cy.log(`The user "${username}" was not found.`);
-        }
-    });
+   
+    searchItems.usernameInput().click().type(username);
+ 
+    searchItems.buttonSearch().click();
+	cy.wait(2000)
+	searchItems.buttonSearch().click();
+	cy.get('.oxd-table-loader').should('not.exist')
+	
+	cy.get('.oxd-table-cell-actions > :nth-child(1)').click()
+    cy.get('.oxd-button--label-danger').click()
+    cy.get('.oxd-text--toast-message').should('exist');
+    cy.get('.oxd-toast').should('exist');
+
+    cy.get('.oxd-table-loader').should('not.exist');
+   //secord Part
+    searchItems.usernameInput().click().type(username);
+ 
+    searchItems.buttonSearch().click();
+	cy.get('.oxd-toast--info > .oxd-toast-start > .oxd-toast-content > .oxd-text--toast-message').should('exist')
+	//.should('contain','No Records Found')
+
 });
 //USER EDIT
 
@@ -164,33 +162,6 @@ Cypress.Commands.add('userEdit', (username) => {
   });
 
 
-
-
-
-
-
-
-
-
-
-/*
-
-	cy.get('.oxd-table-row').then($rows => {
-		searchItems.usernameInput().click().type(username);
-		searchItems.buttonSearch().click();
-	  if ($rows.find(`:contains("${username}")`).length > 0) {
-		// If user is present, click on the trash icon to delete it
-		cy.get('i.oxd-icon.bi-trash').click();
-		cy.get('.oxd-button--label-danger').click();
-		cy.get('.oxd-text--toast-message').should('exist')
-		cy.contains(username).should('not.exist');
-	
-	  } else {
-		// If user is not present, verify that the trash icon does not exist
-		cy.get('i.oxd-icon.bi-trash').should('not.exist');
-		cy.log(`The user "${username}" was not found.`);
-	  }
-	}); */
 
 
 

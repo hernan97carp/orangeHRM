@@ -1,5 +1,5 @@
-const { dropDown } = require('../../../../support/POM/Drop.Down');
-const { LoginUserData } = require('../../../../support/DATA/loginData');
+const { dropDown } = require('../../../../../support/POM/Drop.Down');
+const { LoginUserData } = require('../../../../../support/DATA/loginData');
 const { usernameLogin, passwordLogin } = LoginUserData;
 const dropdownMenuItems = dropDown.dropdownHeaderHamburger;
 
