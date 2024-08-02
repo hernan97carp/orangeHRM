@@ -1,5 +1,5 @@
 
-const { adminUser } = require('../../../POM/Admin.Users');
+const { adminUser } = require('../../../POM/Admin.Users.Page');
 const searchItems = adminUser.systemUsers;
 const createNewEmployee = adminUser.addEmployee;
 const createNewUser = adminUser.addUser;
@@ -155,14 +155,32 @@ Cypress.Commands.add('userEdit', (username) => {
 		// If user is present, click on the trash icon to delete it
 		cy.get('.oxd-table-cell-actions > :nth-child(2) > .oxd-icon').click()
 	  } else {
-		// If user is not present, verify that the trash icon does not exist
-		console.log("asds")
+		cy.log(`The user '${username}' does not exist`);
+		throw new Error(`The user '${username}' does not exist`);
 	  }
 	});
   });
 
 
 
+
+
+  Cypress.Commands.add('userEdit', (username) => {
+	cy.get('.oxd-table-row').then($rows => {
+	  searchItems.usernameInput().click().type(username);
+	  searchItems.buttonSearch().click();
+	  
+	  // Check if the user exists in the table
+	  if ($rows.find(`:contains("${username}")`).length > 0) {
+		// If user is present, click on the trash icon to delete it
+		cy.get('.oxd-table-cell-actions > :nth-child(2) > .oxd-icon').click();
+	  } else {
+		// If user is not present, log an error message and throw an exception
+		cy.log(`The user '${username}' does not exist`);
+		throw new Error(`The user '${username}' does not exist`);
+	  }
+	});
+  });
 
 
 

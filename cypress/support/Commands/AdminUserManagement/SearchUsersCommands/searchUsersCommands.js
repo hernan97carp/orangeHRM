@@ -1,16 +1,19 @@
-const { adminUser } = require('../../../POM/Admin.Users');
+const { adminUser } = require('../../../POM/Admin.Users.Page');
 const searchItems = adminUser.systemUsers;
 const resultsSearch = adminUser.recordsFounds;
 Cypress.Commands.add('searchNewUser', (username, firstName, lastName) => {
 
 	cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers');
 
-	cy.reload();
-	cy.reload();
+	
+	cy.reload().then(()=>{
 	//Search
 	searchItems.usernameInput().click().type(username);
 	searchItems.userRoleInput().click();
 	searchItems.optionUserRoleAdmin().click();
+
+
+	});
 
     //cy.employee(employeeName)
 

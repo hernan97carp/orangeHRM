@@ -4,8 +4,9 @@
 	"description": "\u0016",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"format": "prettier --write \"**/*.js\""
+		"test": "cypress open",
+		"format": "prettier --write \"**/*.js\"",
+		"headless": "cypress run --headless"
 	},
 	"repository": {
 		"type": "git",
@@ -22,7 +23,8 @@
 		"@faker-js/faker": "^8.4.1",
 		"cypress": "^13.6.4",
 		"cypress-downloadfile": "^1.2.3",
-		"cypress-file-upload": "^5.0.8"
+		"cypress-file-upload": "^5.0.8",
+		"orangehrm": "file:"
 	},
 	"devDependencies": {
 		"faker": "^5.5.3",

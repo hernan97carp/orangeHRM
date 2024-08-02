@@ -1,3 +1,5 @@
+const { adminUser } = require("../../POM/Admin.Users.Page");
+
 Cypress.Commands.add('checkAndDeleteEmployee', (firstName, middleName, randomNumber) => {
 	// Visit the employee list page
 	cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList');
@@ -15,17 +17,17 @@ Cypress.Commands.add('checkAndDeleteEmployee', (firstName, middleName, randomNum
 
 	// Iterate through each trash icon to delete the employee
 
-	cy.get('.orangehrm-container').should('contain', `${firstName} ${middleName}`);
-	cy.get('.oxd-table-cell-actions > :nth-child(1)').click();
-	cy.get('.oxd-button--label-danger').click();
-	cy.get('.oxd-text--toast-message').should('exist');
-	cy.get('.oxd-toast').should('exist');
+	cy.get('.orangehrm-container').should('contain', `${firstName} ${middleName}`).within(()=>{
+		cy.get('.oxd-icon.bi-trash').click()
+	
+	});
+	cy.contains('button', 'Yes, Delete') 
+	.should('be.visible')
+	.trigger('mouseover') 
+	.click().then(()=>{
+		cy.get(adminUser.addEmployee.alertSuccess).invoke('text').should('contain','Successfully Deleted');
+	})
 
-	cy.get('.oxd-table-loader').should('not.exist');
 
-	//second part
-
-	cy.get('.oxd-form-actions > .oxd-button--secondary').click();
-
-	cy.get('.orangehrm-horizontal-padding > .oxd-text').should('contain', 'No Records Found');
 });
+

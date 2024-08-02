@@ -16,11 +16,17 @@ class AdminUser {
 		optionStatusEnable: () => cy.get('.oxd-select-dropdown > :nth-child(2) > span'),
 		buttonSearch: () => cy.get('.oxd-form-actions > .oxd-button--secondary'),
 		buttonReset: () => cy.get('.oxd-button--ghost'),
+        tableLoader: () => cy.get('.oxd-table-loader'),
+		tableCard: () => cy.get('.oxd-table-card > .oxd-table-row'),
+		toast: () => cy.get('.oxd-toast--success'),
+		toastContent: () => cy.get('.oxd-toast-content')
 	};
 
 	recordsFounds = {
 		resultsRecordsFounds: () =>
 			cy.get('.orangehrm-horizontal-padding > .oxd-text').invoke('text'),
+		noRecordsFound: () =>
+			cy.get('oxd-text.oxd-text--p.oxd-text--toast-title.oxd-toast-content-text').invoke('text'),	
 		usernameFieldContainer: () =>
 			cy.get('.oxd-table-card > .oxd-table-row > :nth-child(2) > div'),
 		userRoleFieldCOntainer: () =>
@@ -30,7 +36,7 @@ class AdminUser {
 		statusFieldContainer: () =>
 			cy.get('.oxd-table-card > .oxd-table-row > :nth-child(5) > div'),
 	};
-
+	
 	addEmployee = {
 		addMoreUser: () => cy.get('.orangehrm-header-container > .oxd-button'),
 		firstNameInput: () =>
@@ -76,6 +82,17 @@ class AdminUser {
 				'.user-password-row > .oxd-grid-2 > :nth-child(2) > .oxd-input-group > .oxd-text',
 			),
 	};
+
+
+
+
+   goTo(){
+	cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers');
+   }
+
+
+
+
 }
 
 export const adminUser = new AdminUser();

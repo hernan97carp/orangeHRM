@@ -5,7 +5,7 @@ import './Commands/AdminUserManagement/AdminUserCommands/adminUserCommands';
 import './commands/LoginCommands/loginCommands';
 import  './Commands/AdminUserManagement/SearchUsersCommands/searchUsersCommands'
 import  './Commands/PIM/employeeCommands'
-const { dropDown } = require('../support/POM/Drop.Down');
+const { dropDown } = require('../support/POM/Drop.Down.Page');
 
 // Custom function to perform a login in OrangeHRM with the option to keep the session active
 //Only use these commands to test the software

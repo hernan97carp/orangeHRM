@@ -1,4 +1,4 @@
-const { dropDown } = require('../../../../../support/POM/Drop.Down');
+const { dropDown } = require('../../../../../support/POM/Drop.Down.Page');
 const { LoginUserData } = require('../../../../../support/DATA/loginData');
 const { usernameLogin, passwordLogin } = LoginUserData;
 const dropdownMenuItems = dropDown.userOptions;

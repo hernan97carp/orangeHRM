@@ -1,4 +1,4 @@
-const { dropDown } = require('../../../../../support/POM/Drop.Down');
+const { dropDown } = require('../../../../../support/POM/Drop.Down.Page');
 const { LoginUserData } = require('../../../../../support/DATA/loginData');
 const { usernameLogin, passwordLogin } = LoginUserData;
 const dropdownMenuItems = dropDown.dropdownHeaderHamburger;
@@ -78,11 +78,6 @@ describe('orange | dropDown | header hamburger', () => {
 		cy.get('.oxd-topbar-header-title').contains('Claim');
 	});
 
-	it('US-02 TC13: Should display and navigate correctly to the "Buzz" element', () => {
-		dropdownMenuItems.itemBuzz().click();
-		cy.url().should('contain', 'viewBuzz');
-		cy.get('.oxd-topbar-header-title').contains('Buzz');
-	});
 });
 
 describe('orange | navigation | header hamburger Button Search', () => {
@@ -100,8 +95,8 @@ describe('orange | navigation | header hamburger Button Search', () => {
 			.should('have.attr', 'fill', 'currentColor');
 	});
 	it('US-02 TC2:It should display a valid result when performing a search. ', () => {
-		dropdownMenuItems.itemSearch().click().type('buzz');
-		cy.get('span.oxd-text.oxd-text--span.oxd-main-menu-item--name').contains('Buzz');
+		dropdownMenuItems.itemSearch().click().type('Admin');
+		cy.get('span.oxd-text.oxd-text--span.oxd-main-menu-item--name').contains('Admin');
 	});
 	it('US-02 TC3:It should display all items from the dropdown menu that have the letter "d".', () => {
 		dropdownMenuItems.itemSearch().click().type('d');
@@ -132,6 +127,6 @@ describe('orange | navigation | header hamburger Button Search', () => {
 		dropdownMenuItems.itemSearch().click().type('Term to Clear');
 		cy.get('span.oxd-text.oxd-text--span.oxd-main-menu-item--name').should('not.exist');
 		dropdownMenuItems.itemSearch().clear();
-		cy.get('li.oxd-main-menu-item-wrapper').should('have.length', 12);
+		cy.get('li.oxd-main-menu-item-wrapper').should('have.length', 11);
 	});
 });

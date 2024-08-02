@@ -1,5 +1,5 @@
 const { login } = require('../../../../../support/POM/Login.Page');
-const { dropDown } = require('../../../../../support/POM/Drop.Down');
+const { dropDown } = require('../../../../../support/POM/Drop.Down.Page');
 const { dashboardIndex, LoginUserData } = require('../../../../../support/DATA/loginData');
 const {
 	usernameLogin,
